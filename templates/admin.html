@@ -215,7 +215,7 @@
                 <div class="form-group full-width">
                     <label for="url_foto">Links de ImgBB (Uno por línea)</label>
                     <div class="imgbb-info">
-                        Copia los enlaces directos. El primero será la portada principal.
+                        Copie los enlaces directos. El primero será la portada principal.
                     </div>
                     <textarea id="url_foto" name="url_foto" rows="3" required placeholder="https://i.ibb.co/foto1.jpg&#10;https://i.ibb.co/foto2.jpg"></textarea>
                 </div>
@@ -261,16 +261,15 @@
                         <td>
                             <button type="button" class="btn-accion btn-edit" 
                                 data-id="{{ p.id }}"
-                                data-titulo="{{ p.titulo|replace("'", "\\'") }}"
+                                data-titulo="{{ p.titulo|replace('"', '\\"') }}"
                                 data-precio="{{ p.precio }}"
-                                data-desc="{{ p.descripcion|replace('\n', ' ')|replace("'", "\\'") }}"
+                                data-desc="{{ p.descripcion|replace('\n', ' ')|replace('"', '\\"') }}"
                                 data-imgs='{{ p.imagenes|tojson }}'
                                 onclick="llenarFormulario(this)">
                                 ✏️
                             </button>
                             
                             <a href="{{ url_for('cambiar_estado', id=p.id) }}" class="btn-accion btn-status" title="Cambiar Stock">🔄</a>
-                            
                             <a href="{{ url_for('eliminar', id=p.id) }}" class="btn-accion btn-del" onclick="return confirm('¿Eliminar este accesorio definitivamente?')">🗑️</a>
                         </td>
                     </tr>
@@ -288,20 +287,19 @@
 
     <script>
         function llenarFormulario(btn) {
-            // Extraer datos del botón
+            // Extraer datos usando getAttribute para evitar errores de sintaxis inline
             const id = btn.getAttribute('data-id');
             const titulo = btn.getAttribute('data-titulo');
             const precio = btn.getAttribute('data-precio');
             const desc = btn.getAttribute('data-desc');
             const imgsRaw = btn.getAttribute('data-imgs');
 
-            // Asignar a los inputs del formulario
+            // Asignar a los campos
             document.getElementById('id_producto').value = id;
             document.getElementById('titulo').value = titulo;
             document.getElementById('precio').value = precio;
             document.getElementById('descripcion').value = desc;
             
-            // Procesar imágenes (Convertir JSON a texto con saltos de línea)
             try {
                 const listaImgs = JSON.parse(imgsRaw);
                 document.getElementById('url_foto').value = Array.isArray(listaImgs) ? listaImgs.join('\n') : listaImgs;
@@ -309,12 +307,12 @@
                 document.getElementById('url_foto').value = imgsRaw;
             }
             
-            // Cambiar apariencia del botón principal
             const submitBtn = document.getElementById('btn-submit');
             submitBtn.innerText = "Actualizar Accesorio";
-            submitBtn.style.backgroundColor = "#28a745"; // Color verde éxito
             
-            // Scroll suave hacia arriba para ver el formulario
+            // CORRECCIÓN: Se agregaron comillas para que el navegador lea la variable CSS como texto
+            submitBtn.style.backgroundColor = "var(--verde-exito)"; 
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>

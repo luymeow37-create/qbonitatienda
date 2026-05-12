@@ -8,7 +8,7 @@
     <style>
         :root {
             --azul-logo: #dc55ee;
-            --azul-hover: #dc55ee;
+            --azul-hover: #c24cd1;
             --blanco-puro: #ffffff;
             --gris-fondo: #f8f9fa;
             --gris-suave: #e9ecef;
@@ -19,7 +19,7 @@
             padding: 0;
             font-family: 'Montserrat', sans-serif;
             background-color: var(--gris-fondo);
-            /* Fondo con patrón sutil igual que la tienda */
+            /* Usamos la misma textura sutil que en el admin para coherencia visual */
             background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
             display: flex;
             justify-content: center;
@@ -35,15 +35,10 @@
             width: 100%;
             max-width: 380px;
             text-align: center;
-            border-top: 6px solid var(--azul-logo); /* Detalle de color de la marca */
+            border-top: 6px solid var(--azul-logo);
         }
 
-        .login-header img {
-            width: 80px; /* Ajusta según el tamaño de tu logo */
-            margin-bottom: 15px;
-        }
-
-        .login-card h2 {
+        .login-header h2 {
             color: var(--azul-logo);
             font-weight: 700;
             margin: 0 0 10px 0;
@@ -88,7 +83,7 @@
         .form-group input:focus {
             border-color: var(--azul-logo);
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 86, 179, 0.1);
+            box-shadow: 0 0 10px rgba(220, 85, 238, 0.1);
         }
 
         .btn-entrar {
@@ -103,23 +98,27 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+            box-shadow: 0 4px 12px rgba(220, 85, 238, 0.2);
         }
 
         .btn-entrar:hover {
             background-color: var(--azul-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 86, 179, 0.3);
+            box-shadow: 0 6px 15px rgba(220, 85, 238, 0.3);
         }
 
-        /* Mensaje de Error Humanizado */
-        .flash-error {
-            color: #721c24;
+        /* Mensajes de Flash corregidos para Flask */
+        .flash-message {
             font-size: 0.85rem;
             margin-bottom: 20px;
             padding: 12px;
-            background: #f8d7da;
             border-radius: 10px;
+            text-align: center;
+        }
+        
+        .flash-error {
+            color: #721c24;
+            background: #f8d7da;
             border: 1px solid #f5c6cb;
         }
 
@@ -137,7 +136,6 @@
             color: var(--azul-logo);
         }
 
-        /* Estilo para celulares */
         @media (max-width: 480px) {
             .login-card {
                 margin: 20px;
@@ -150,16 +148,15 @@
 
     <div class="login-card">
         <div class="login-header">
-            <!-- Si tienes el logo, puedes descomentar la línea de abajo -->
-            <!-- <img src="URL_DE_TU_LOGO" alt="Logo"> -->
-            <h2>Q°bonita</h2>
+            <img src="{{ url_for('static', filename='recursos/tu_cabecera.png') }}" alt="Logo" style="max-width: 150px; margin-bottom: 10px;">
+            <h2>Gestión Q°bonita</h2>
             <p>Acceso al Panel de Control</p>
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             {% for category, message in messages %}
-              <div class="flash-error">{{ message }}</div>
+              <div class="flash-message flash-error">{{ message }}</div>
             {% endfor %}
           {% endif %}
         {% endwith %}
@@ -167,7 +164,7 @@
         <form action="/login" method="POST">
             <div class="form-group">
                 <label for="usuario">Usuario del Sistema</label>
-                <input type="text" id="usuario" name="usuario" placeholder="Ej: admin_qbonita" required autofocus>
+                <input type="text" id="usuario" name="usuario" placeholder="Tu usuario" required autofocus>
             </div>
             
             <div class="form-group">
@@ -175,7 +172,7 @@
                 <input type="password" id="clave" name="clave" placeholder="••••••••" required>
             </div>
 
-            <button type="submit" class="btn-entrar">ENTRAR AHORA</button>
+            <button type="submit" class="btn-entrar">ENTRAR AL SISTEMA</button>
         </form>
 
         <a href="/" class="back-to-store">← Volver a la vitrina</a>

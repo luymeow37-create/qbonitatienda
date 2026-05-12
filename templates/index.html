@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --lila-profundo: #7d629b; /* Oscurecido para legibilidad */
+            --lila-profundo: #7d629b;
             --lila-claro: #f3eff9;
             --dorado-suave: #d4af37;
-            --texto-oscuro: #2d2d2d; /* Más oscuro y profesional */
+            --texto-oscuro: #2d2d2d;
             --blanco-puro: #ffffff;
         }
 
@@ -19,6 +19,7 @@
             margin: 0;
             color: var(--texto-oscuro);
             background-color: var(--lila-claro);
+            /* Ruta corregida para Render */
             background-image: url("{{ url_for('static', filename='recursos/patron_flores.png') }}");
             background-attachment: fixed;
             background-size: 300px;
@@ -27,10 +28,9 @@
         .glass-overlay {
             min-height: 100vh;
             background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(243,239,249,0.2) 100%);
-            padding-bottom: 0; /* Ajustado para el nuevo footer */
+            padding-bottom: 0;
         }
 
-        /* Cabecera */
         header {
             background: var(--blanco-puro);
             padding: 40px 20px;
@@ -47,7 +47,7 @@
             left: 0;
             font-size: 0.65rem;
             letter-spacing: 5px;
-            color: #999; /* Oscurecido */
+            color: #999;
             text-transform: uppercase;
         }
 
@@ -64,7 +64,6 @@
             font-weight: 500;
         }
 
-        /* Vitrina */
         .vitrina-container {
             max-width: 1100px;
             margin: 60px auto;
@@ -92,7 +91,6 @@
             margin: 0 auto;
         }
 
-        /* Grid de Productos */
         .grid-productos {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -117,6 +115,7 @@
         .img-container {
             height: 320px;
             overflow: hidden;
+            background-color: #f9f9f9;
         }
 
         .producto-card img {
@@ -133,23 +132,22 @@
 
         .info-premium h3 {
             font-family: 'Comfortaa';
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin: 0 0 8px 0;
             color: var(--lila-profundo);
             font-weight: 600;
         }
 
         .price-tag {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 400;
             color: var(--texto-oscuro);
             margin-bottom: 15px;
             display: block;
         }
 
-        /* Footer con Cuadro Blanco */
         footer {
-            background: var(--blanco-puro); /* Fondo blanco igual a cabecera */
+            background: var(--blanco-puro);
             padding: 60px 20px;
             margin-top: 100px;
             text-align: center;
@@ -174,13 +172,11 @@
             transition: opacity 0.3s;
         }
 
-        .mod-item:hover {
-            opacity: 0.7;
-        }
+        .mod-item:hover { opacity: 0.7; }
 
         .owner-credit {
             font-size: 0.7rem;
-            color: #777; /* Texto de crédito más oscuro */
+            color: #777;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
@@ -192,9 +188,7 @@
             transition: color 0.3s;
         }
 
-        .admin-hidden-link:hover {
-            color: var(--lila-profundo);
-        }
+        .admin-hidden-link:hover { color: var(--lila-profundo); }
 
         @media (max-width: 480px) {
             .contact-modules { gap: 15px; }
@@ -222,7 +216,7 @@
                 {% for p in productos %}
                 <a href="{{ url_for('detalle_producto', id=p.id) }}" class="producto-card">
                     <div class="img-container">
-                        <img src="{{ p.url_imagen }}" alt="{{ p.titulo }}">
+                        <img src="{{ p.url_imagen }}" alt="{{ p.titulo }}" loading="lazy">
                     </div>
 
                     <div class="info-premium">
