@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q°bonita Accesorios | Boutique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lila-profundo: #7d629b; /* Oscurecido para legibilidad */
+            --lila-claro: #f3eff9;
+            --dorado-suave: #d4af37;
+            --texto-oscuro: #2d2d2d; /* Más oscuro y profesional */
+            --blanco-puro: #ffffff;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            color: var(--texto-oscuro);
+            background-color: var(--lila-claro);
+            background-image: url("{{ url_for('static', filename='recursos/patron_flores.png') }}");
+            background-attachment: fixed;
+            background-size: 300px;
+        }
+
+        .glass-overlay {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(243,239,249,0.2) 100%);
+            padding-bottom: 0; /* Ajustado para el nuevo footer */
+        }
+
+        /* Cabecera */
+        header {
+            background: var(--blanco-puro);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(125, 98, 155, 0.2);
+            position: relative;
+        }
+
+        .top-brand-detail {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            left: 0;
+            font-size: 0.65rem;
+            letter-spacing: 5px;
+            color: #999; /* Oscurecido */
+            text-transform: uppercase;
+        }
+
+        header img {
+            max-width: 250px;
+            margin-bottom: 10px;
+        }
+
+        .owner-signature {
+            font-family: 'Comfortaa';
+            font-size: 0.85rem;
+            color: var(--lila-profundo);
+            letter-spacing: 3px;
+            font-weight: 500;
+        }
+
+        /* Vitrina */
+        .vitrina-container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 25px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h1 {
+            font-family: 'Comfortaa';
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--lila-profundo);
+            margin-bottom: 15px;
+            text-transform: lowercase;
+        }
+
+        .section-title .divider {
+            width: 40px;
+            height: 2px;
+            background: var(--dorado-suave);
+            margin: 0 auto;
+        }
+
+        /* Grid de Productos */
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 35px;
+        }
+
+        .producto-card {
+            background: var(--blanco-puro);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(125, 98, 155, 0.15);
+        }
+
+        .img-container {
+            height: 320px;
+            overflow: hidden;
+        }
+
+        .producto-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s ease;
+        }
+
+        .info-premium {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .info-premium h3 {
+            font-family: 'Comfortaa';
+            font-size: 1.2rem;
+            margin: 0 0 8px 0;
+            color: var(--lila-profundo);
+            font-weight: 600;
+        }
+
+        .price-tag {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--texto-oscuro);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Footer con Cuadro Blanco */
+        footer {
+            background: var(--blanco-puro); /* Fondo blanco igual a cabecera */
+            padding: 60px 20px;
+            margin-top: 100px;
+            text-align: center;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(125, 98, 155, 0.1);
+        }
+
+        .contact-modules {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .mod-item {
+            font-size: 0.8rem;
+            color: var(--lila-profundo);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            transition: opacity 0.3s;
+        }
+
+        .mod-item:hover {
+            opacity: 0.7;
+        }
+
+        .owner-credit {
+            font-size: 0.7rem;
+            color: #777; /* Texto de crédito más oscuro */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .admin-hidden-link {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .admin-hidden-link:hover {
+            color: var(--lila-profundo);
+        }
+
+        @media (max-width: 480px) {
+            .contact-modules { gap: 15px; }
+            .section-title h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-overlay">
+        
+        <header>
+            <div class="top-brand-detail">Boutique Online 2026</div>
+            <img src="{{ url_for('static', filename='recursos/tu_cabecera.png') }}" alt="Q°bonita">
+            <div class="owner-signature">creaciones por Elena Figueroa</div>
+        </header>
+
+        <main class="vitrina-container">
+            <div class="section-title">
+                <h1>nueva colección</h1>
+                <div class="divider"></div>
+            </div>
+
+            <div class="grid-productos">
+                {% for p in productos %}
+                <a href="{{ url_for('detalle_producto', id=p.id) }}" class="producto-card">
+                    <div class="img-container">
+                        <img src="{{ p.url_imagen }}" alt="{{ p.titulo }}">
+                    </div>
+
+                    <div class="info-premium">
+                        <h3>{{ p.titulo }}</h3>
+                        <span class="price-tag">${{ p.precio }}</span>
+                        <div style="font-size: 0.75rem; color: var(--lila-profundo); letter-spacing: 2px; font-weight: 700;">VER DETALLES</div>
+                    </div>
+                </a>
+                {% else %}
+                <div style="grid-column: 1/-1; text-align: center; padding: 50px;">
+                    <p style="color: var(--lila-profundo);">Pronto tendremos más accesorios para ti.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+
+        <footer>
+            <div class="contact-modules">
+                <a href="https://wa.me/584143939483" target="_blank" class="mod-item">WHATSAPP</a>
+                <a href="#" class="mod-item">INSTAGRAM</a>
+                <a href="#" class="mod-item">UBICACIÓN</a>
+            </div>
+            <div class="owner-credit">
+                Handmade with love & care by 
+                <a href="{{ url_for('login') }}" class="admin-hidden-link">Elena Figueroa</a> 
+                &copy; 2026
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Q°bonita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul-logo: #dc55ee;
+            --azul-hover: #dc55ee;
+            --blanco-puro: #ffffff;
+            --gris-fondo: #f8f9fa;
+            --gris-suave: #e9ecef;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--gris-fondo);
+            /* Fondo con patrón sutil igual que la tienda */
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-card {
+            background: var(--blanco-puro);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            border-top: 6px solid var(--azul-logo); /* Detalle de color de la marca */
+        }
+
+        .login-header img {
+            width: 80px; /* Ajusta según el tamaño de tu logo */
+            margin-bottom: 15px;
+        }
+
+        .login-card h2 {
+            color: var(--azul-logo);
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1.4rem;
+        }
+
+        .login-card p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 8px;
+            margin-left: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--gris-suave);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: #333;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--azul-logo);
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 86, 179, 0.1);
+        }
+
+        .btn-entrar {
+            width: 100%;
+            padding: 16px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 12px;
+            background-color: var(--azul-logo);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+        }
+
+        .btn-entrar:hover {
+            background-color: var(--azul-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 86, 179, 0.3);
+        }
+
+        /* Mensaje de Error Humanizado */
+        .flash-error {
+            color: #721c24;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #f8d7da;
+            border-radius: 10px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .back-to-store {
+            display: inline-block;
+            margin-top: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-to-store:hover {
+            color: var(--azul-logo);
+        }
+
+        /* Estilo para celulares */
+        @media (max-width: 480px) {
+            .login-card {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="login-header">
+            <!-- Si tienes el logo, puedes descomentar la línea de abajo -->
+            <!-- <img src="URL_DE_TU_LOGO" alt="Logo"> -->
+            <h2>Q°bonita</h2>
+            <p>Acceso al Panel de Control</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash-error">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="usuario">Usuario del Sistema</label>
+                <input type="text" id="usuario" name="usuario" placeholder="Ej: admin_qbonita" required autofocus>
+            </div>
+            
+            <div class="form-group">
+                <label for="clave">Contraseña</label>
+                <input type="password" id="clave" name="clave" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-entrar">ENTRAR AHORA</button>
+        </form>
+
+        <a href="/" class="back-to-store">← Volver a la vitrina</a>
+    </div>
+
+</body>
+</html>
